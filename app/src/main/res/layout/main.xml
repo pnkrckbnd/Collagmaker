@@ -1,11 +1,122 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:orientation="vertical">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+	<android.support.v7.widget.Toolbar
+		android:layout_width="match_parent"
+		android:layout_height="63dp"
+		android:id="@+id/toolbar">
+
+		
+
+	</android.support.v7.widget.Toolbar>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical|center_horizontal"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_centerHorizontal="true"
+			android:layout_gravity="center_vertical|center_horizontal"
+			android:textSize="26sp"
+			android:padding="5dp"
+			android:text="Choose image to reconstruct"
+			android:layout_weight=".20"
+			android:background="#E7E7E7FF"
+			android:shadowColor="#000000"
+			android:gravity="center_horizontal"
+			android:shadowDx="1.0"
+			android:shadowDy="1.0"
+			android:shadowRadius="10"
+			android:alpha="1"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal">
+
+			<EditText
+				android:inputType="textAutoComplete|textLongMessage"
+				android:layout_width="wrap_content"
+				android:ems="10"
+				android:layout_height="wrap_content"
+				android:lines="1"
+				android:drawableLeft="@android:drawable/ic_menu_search"
+				android:drawablePadding="15dp"
+				android:gravity="bottom|left"
+				android:textColor="#000000"
+				android:singleLine="true"
+				android:background="@drawable/bg_search"
+				android:id="@+id/imageQueryEditText"
+				android:hint="search images..."
+				android:padding="12dp"
+				android:typeface="sans"
+				android:layout_gravity="left"
+				android:layout_weight="1.0"
+				android:textColorHint="#C2C2C2"/>
+
+			<Button
+				style="?android:attr/buttonStyleSmall"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Search"
+				android:layout_gravity="bottom|right"
+				android:layout_weight=".2"
+				android:id="@+id/searchBtn"/>
+
+		</LinearLayout>
+
+		<RelativeLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center_vertical|center_horizontal">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:orientation="horizontal"
+				android:background="@color/text_color_black"
+				android:layout_gravity="top|center_horizontal">
+
+				<Button
+					style="?android:attr/buttonBarButtonStyle"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="Upload Image"
+					android:layout_weight=".45"
+					android:gravity="center_vertical|center_horizontal"
+					android:textColor="@color/text_color_white"
+					android:id="@+id/uploadImgBtn"/>
+
+				<Button
+					style="?android:attr/buttonBarButtonStyle"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="Random Image"
+					android:layout_weight=".45"
+					android:gravity="center_vertical|center_horizontal"
+					android:textColor="@color/text_color_white"
+					android:id="@+id/randomImgBtn"/>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
+	<FrameLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:id="@+id/imageViewFragmentFrame"
+		android:layout_margin="6dp"/>
 
 </LinearLayout>
+
