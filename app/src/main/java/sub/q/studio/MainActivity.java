@@ -3,8 +3,8 @@ package sub.q.studio;
 import android.content.*;
 import android.os.*;
 import android.graphics.*;
-import android.widget.*;
-import android.view.*;
+
+
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import java.util.*;
@@ -17,13 +17,15 @@ import org.apache.http.client.*;
 import android.support.v4.app.*;
 import android.support.v7.*;
 import android.support.v7.app.*;
+import android.graphics.drawable.*;
+import android.widget.*;
 
 public class MainActivity extends AppCompatActivity
 {
 	public static final GoogleClientRequestInitializer KEY_INITIALIZER =
 	new CustomsearchRequestInitializer("collagemaker-1512357997022");
 	
-	private Toolbar mActionBar;
+	private ActionBar mActionBar;
 	private EditText imageQueryEditText;
 	private Button searchBtn;
 	private Button uploadImgBtn;
@@ -36,16 +38,28 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		mActionBar = (Toolbar)findViewById(R.id.toolbar);
+		Toolbar tb = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(mActionBar);
-
+		mActionBar = getSupportActionBar();
+		
 		imageQueryEditText = (EditText)findViewById(R.id.imageQueryEditText);
 		searchBtn = (Button)findViewById(R.id.searchBtn);
 		searchBtn.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
 					if(v.getId() == R.id.searchBtn) {
-						searchForImages("");
+						List<Bitmap> bitmaps = searchForImages("");
+						
+						FragmentManager fm = getSupportFragmentManager();
+						FragmentTransaction ft = fm.beginTransaction();
+						if(fm.findFragmentByTag("imgViewFrag") == null) {
+							ft.add(R.id.imageViewFragmentFrame, new ImgGridFragment(bitmaps), "imgViewFrag");
+						}
+						else {
+							ft.replace(R.id.imageViewFragmentFrame, new ImgGridFragment(bitmaps), "imgViewFrag");
+							ft.addToBackStack(null);
+						}
+						ft.commit();						
 					}
 				}
 		});
@@ -61,20 +75,15 @@ public class MainActivity extends AppCompatActivity
 	
 	
 	
-	private void searchForImages(String query){
+	private List<Bitmap> searchForImages(String query){
 	
-		FragmentManager fm = getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-		if(fm.findFragmentByTag("imgViewFrag") == null) {
-			ft.add(R.id.imageViewFragmentFrame, new ImgGridFragment(this), "imgViewFrag");
+		List<Bitmap> bitmaps = new ArrayList<Bitmap>();
+		Random r = new Random();
+		int size = r.nextInt(r.nextInt(100));
+		for(int i = 0; i < size; i++) {
+			bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.abc_ic_star_black_48dp));
 		}
-		else {
-			ft.replace(R.id.imageViewFragmentFrame, new ImgGridFragment(this), "imgViewFrag");
-			ft.addToBackStack(null);
-		}
-		ft.commit();
-		
-	}
-	
-	
+
+		return bitmaps;
+	}	
 }

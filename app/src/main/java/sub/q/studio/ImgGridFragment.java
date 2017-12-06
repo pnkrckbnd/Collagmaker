@@ -13,26 +13,33 @@ public class ImgGridFragment extends Fragment
 {
 	RecyclerView recyclerView;
 	Context context;
+	List<Bitmap> mBitmaps;
 
-	public ImgGridFragment(Context context)
+	public ImgGridFragment(List<Bitmap> bitmaps)
 	{
-		this.context = context;
+		mBitmaps = bitmaps;
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View v = inflater.inflate(R.layout.fragment_image_gridview, container, false);
-		recyclerView = (RecyclerView) v.findViewById(R.id.rvMain);
-		
-		TextView tv = (TextView) v.findViewById(R.id.fragmentImageGridviewTextView);
-		Random r = new Random();
-		tv.setText("Number: " + String.valueOf(r.nextInt(10)));
-		
-		
-		return v;
+		return inflater.inflate(R.layout.fragment_image_gridview, container);
 	}
 
+	@Override
+	public void onViewCreated(View v, Bundle savedInstanceState)
+	{
+		super.onViewCreated(v, savedInstanceState);
+		recyclerView = (RecyclerView) v.findViewById(R.id.rvMain);
+		RecycleViewAdapter adapter = new RecycleViewAdapter(mBitmaps);
+		recyclerView.setAdapter(adapter);
+		LinearLayoutManager layout = new LinearLayoutManager(v.getContext());
+		recyclerView.setLayoutManager(layout);
+
+		
+	}
+
+	
 	
 	
 	
